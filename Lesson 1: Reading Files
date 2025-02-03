@@ -1,0 +1,10 @@
+#Make sure the txt file is open when you are creating code
+#to read the txt file
+
+jabber = open('Jabberwocky.txt', 'r') #r stands for read
+
+for line in jabber:
+    print(line)
+    
+jabber.close()
+
