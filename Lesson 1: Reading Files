@@ -1,10 +1,17 @@
 #Make sure the txt file is open when you are creating code
 #to read the txt file
 
-jabber = open('Jabberwocky.txt', 'r') #r stands for read
+# jabber = open('Jabberwocky.txt', 'r') #r stands for read
 
-for line in jabber:
-    print(line)
+#for line in jabber:
+    #print(line.rstrip())
+    #print(len(line))
     
-jabber.close()
+#jabber.close()
 
+
+#This code only prints the txt file on one line
+
+with open('Jabberwocky.txt', 'r') as jabber:
+    for line in jabber:
+        print(line.rstrip())
