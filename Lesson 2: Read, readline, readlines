@@ -30,7 +30,7 @@ with open('Jabberwocky.txt') as jabber:
     while True:
         line = jabber.readline().rstrip()
         if 'jubjub' in line.casefold():
-           #break
+           break
         
 print('*' * 80)
 
