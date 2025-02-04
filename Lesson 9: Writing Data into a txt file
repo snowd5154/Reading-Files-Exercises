@@ -1,0 +1,9 @@
+# Sample data to write
+data = "Hello, World!"
+
+# Open the file in write mode ('w')
+with open("output.txt", "w") as file:
+    # Write the data to the file
+    file.write(data)
+
+# The file is automatically closed when exiting the 'with' block
