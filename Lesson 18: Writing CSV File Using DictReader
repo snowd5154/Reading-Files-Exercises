@@ -1,0 +1,23 @@
+import csv
+
+# Sample data as a list of dictionaries
+data = [
+    {'Name': 'John', 'Age': 25, 'City': 'New York'},
+    {'Name': 'Emma', 'Age': 30, 'City': 'London'},
+    {'Name': 'Mike', 'Age': 28, 'City': 'Tokyo'}
+]
+
+# Field names (column headers)
+fieldnames = ['Name', 'Age', 'City']
+
+# Open the CSV file for writing
+with open('output.csv', 'w', newline='') as csvfile:
+    # Create a DictWriter object
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+    # Write the header row
+    writer.writeheader()
+
+    # Write the data rows
+    for row in data:
+        writer.writerow(row)
