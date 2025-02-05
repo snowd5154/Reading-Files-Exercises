@@ -1,0 +1,20 @@
+import csv
+
+# Sample data
+data = [
+    ["Name", "Age", "City"],
+    ["John", 25, "New York"],
+    ["Mary", 30, "Los Angeles"],
+    ["Bob", 20, "Chicago"]
+]
+
+# Open the file in write mode ('w')
+with open('data.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+
+    # Write the header row
+    writer.writerow(data[0])
+
+    # Write the data rows
+    for row in data[1:]:
+        writer.writerow(row)
