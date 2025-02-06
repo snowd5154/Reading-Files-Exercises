@@ -1,0 +1,16 @@
+def record_invoice(invoice_file: TextIO,
+                   company: str,
+                   amount: float) -> None:
+    
+    last_row = ''
+    
+    for line in invoice_file:
+        print('*', end='')
+        last_row = line
+    # write the new line
+    
+data_file = 'invoices.csv'
+
+with open(data_file, 'r+') as invoices:
+    record_invoice(invoices, 'ACME Roadrunner', 18.40)
+    record_invoice(invoices, 'Squirrel Storage', 320.55)
