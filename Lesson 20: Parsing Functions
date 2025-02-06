@@ -1,0 +1,13 @@
+def parse_file(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+    
+    data = []
+    for line in lines:
+        values = line.strip().split(',')
+        data.append(values)
+    return data
+
+file_path = 'data.txt' # Assume data.txt contains comma-separated values
+parsed_data = parse_file(file_path)
+print(parsed_data)
