@@ -1,0 +1,62 @@
+import struct
+
+def decode_synchsafe_int(data):
+    """Decodes a synchsafe integer."""
+    out = 0
+    for byte in data:
+        out = (out << 7) | byte
+    return out
+
+def read_id3v2_tag(file_path):
+    """Reads and parses ID3v2 tags from an MP3 file."""
+    with open(file_path, 'rb') as f:
+        # Read the ID3 header (10 bytes)
+        header_data = f.read(10)
+        if header_data[:3] != b'ID3':
+            raise ValueError("No ID3v2 tag found.")
+
+        version = header_data[3:5]
+        flags = header_data[5]
+        size_data = header_data[6:]
+      
+        # Decode the tag size (synchsafe integer)
+        tag_size = decode_synchsafe_int(size_data)
+
+        # Read the entire tag
+        tag_data = f.read(tag_size)
+        
+        offset = 0
+        while offset < len(tag_data):
+            # Read frame header (10 bytes for ID3v2.3)
+            frame_header_data = tag_data[offset:offset+10]
+            if len(frame_header_data) < 10:
+                break  # Avoid errors if frame header is incomplete
+
+            frame_id = frame_header_data[:4].decode('utf-8', errors='ignore')
+            frame_size = struct.unpack('>I', frame_header_data[4:8])[0]
+            frame_flags = frame_header_data[8:10]
+
+            offset += 10
+
+            # Read frame data
+            frame_data = tag_data[offset:offset+frame_size]
+            
+            # Process frame data based on frame_id (example)
+            if frame_id.startswith('T'):  # Text frames
+                encoding = frame_data[0]
+                text = frame_data[1:].decode('utf-8' if encoding == 0 else 'utf-16', errors='ignore')
+                print(f"{frame_id}: {text}")
+            elif frame_id == 'APIC':
+                 print(f"{frame_id}: Picture data found")
+            # Handle other frame types as needed
+
+            offset += frame_size
+
+# Example usage
+if __name__ == "__main__":
+    try:
+        read_id3v2_tag('example.mp3')
+    except ValueError as e:
+        print(e)
+    except FileNotFoundError:
+        print("Error: MP3 file not found.")
