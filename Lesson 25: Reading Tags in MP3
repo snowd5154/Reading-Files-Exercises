@@ -1,0 +1,10 @@
+from tinytag import TinyTag
+
+try:
+    tag = TinyTag.get('your_mp3_file.mp3')
+    print(f"Artist: {tag.artist}")
+    print(f"Title: {tag.title}")
+    print(f"Album: {tag.album}")
+    print(f"Duration: {tag.duration} seconds")
+except Exception as e:
+    print(f"Error reading tags: {e}")
