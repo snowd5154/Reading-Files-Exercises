@@ -1,0 +1,19 @@
+# The seek() method takes two arguments:
+# offset: the position to move to
+# whence (optional): The reference point.
+
+file = open("example.txt", "r")
+file.seek(5)  # Move to the 6th byte in the file
+content = file.read()
+print(content)
+file.close()
+
+#The tell() method returns the current position
+# of the file handle, which is the number of bytes
+# from the beginning of the file
+
+file = open("example.txt", "r")
+file.read(5)
+position = file.tell()
+print(position)  # Output: 5
+file.close()
