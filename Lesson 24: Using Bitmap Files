@@ -1,0 +1,12 @@
+import tkinter as tk
+
+try:
+    window = tk.Tk()
+    bitmap_image = tk.BitmapImage(file="your_image.bmp")
+    label = tk.Label(window, image=bitmap_image)
+    label.pack()
+    window.mainloop()
+except tk.TclError as e:
+    print(f"Error loading bitmap: {e}")
+except FileNotFoundError:
+    print("Error: Bitmap file not found.")
