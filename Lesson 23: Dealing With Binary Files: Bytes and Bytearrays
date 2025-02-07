@@ -1,0 +1,20 @@
+# equation = bytes((207, 128, 114, 194, 178))
+equation = b'\xcf\x80r\xc2\xb2'
+print(equation)
+print(type(equation))
+print(len(equation))
+
+for b in equation:
+    print(b, end=', ')
+print()
+
+print(equation.decode('utf-8'))
+
+# The result will produce:
+# b'\xcf\x80r\xc2\xb2'
+# <class 'bytes'>
+# 5
+# 207, 128, 114, 194, 178, 
+# The thread 'MainThread' (1) has exited with code 0 (0x0).
+# πr²
+# The program 'python.exe' has exited with code 4294967295 (0xffffffff).
