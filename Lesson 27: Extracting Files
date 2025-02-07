@@ -1,0 +1,50 @@
+def extract_images(binary_file, output_dir="."):
+    with open(binary_file, 'rb') as f:
+        data = f.read()
+
+    jpeg_header = b'\xff\xd8\xff'
+    jpeg_footer = b'\xff\xd9'
+    png_header = b'\x89PNG'
+    bmp_header = b'BM'
+
+    image_count = 0
+    start = 0
+    while True:
+        jpeg_start = data.find(jpeg_header, start)
+        png_start = data.find(png_header, start)
+        bmp_start = data.find(bmp_header, start)
+
+        if jpeg_start != -1:
+            jpeg_end = data.find(jpeg_footer, jpeg_start)
+            if jpeg_end != -1:
+                image_data = data[jpeg_start:jpeg_end+len(jpeg_footer)]
+                image_filename = f"{output_dir}/image_{image_count}.jpg"
+                with open(image_filename, 'wb') as img_file:
+                    img_file.write(image_data)
+                image_count += 1
+                start = jpeg_end + len(jpeg_footer)
+            else:
+              break
+        elif png_start != -1:
+            # Simple PNG extraction (may need more robust handling)
+            image_data = data[png_start:]
+            image_filename = f"{output_dir}/image_{image_count}.png"
+            with open(image_filename, 'wb') as img_file:
+                img_file.write(image_data)
+            image_count += 1
+            break # Assuming only one PNG
+        elif bmp_start != -1:
+             #Simple BMP extraction
+            image_data = data[bmp_start:]
+            image_filename = f"{output_dir}/image_{image_count}.bmp"
+            with open(image_filename, 'wb') as img_file:
+                img_file.write(image_data)
+            image_count += 1
+            break # Assuming only one BMP
+        else:
+            break
+
+    print(f"Extracted {image_count} images.")
+
+# Example usage:
+extract_images('file.bin', 'extracted_images')
